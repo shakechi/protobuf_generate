@@ -1,0 +1,17 @@
+{
+  "name": "protobuf_generate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/shakechi/protobuf_generate.git",
+  "author": "shakechi <sctefh.dev@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.4.5",
+    "google-protobuf": "^3.19.1",
+    "grpc-tools": "^1.11.2",
+    "ts-protoc-gen": "^0.15.0"
+  },
+  "scripts": {
+    "codegen": "grpc_tools_node_protoc -I ./proto --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --js_out=import_style=commonjs,binary:./genproto/typescript --grpc_out=grpc_js:./genproto/typescript --ts_out=service=grpc-node,mode=grpc-js:./genproto/typescript ./proto/*.proto"
+  }
+}
