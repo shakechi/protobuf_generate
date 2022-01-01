@@ -1,0 +1,44 @@
+// protoのバージョン
+syntax = "proto3";
+
+// メッセージ型などの名前衝突を避けるためパッケージ名を指定
+package game;
+
+// コードの自動生成先ディレクトリを指定
+option go_package = "genproto/go";
+
+// 他のパッケージのメッセージ型をインポートできます
+// ここではWell Known Typesと呼ばれるGoogle提供のメッセージ型を使用します
+import "google/protobuf/timestamp.proto";
+
+// API全体のサービスを定義
+service RockPaperScissorsService {
+  // 挨拶を行う
+  // 自分の名前と相手の名前を入れると、返事が返ってくる
+  rpc Hello (Greeting) returns (Reply) {}
+}
+
+// 挨拶の種類を定義
+enum greeting_type {
+  UNKNOWN  = 0;
+  GOOD_MORNING  = 1;
+  GOOD_AFTERNOON  = 2;
+  GOOD_EVENING  = 3;
+}
+
+// 型はスカラー型,メッセージ型の2種類がある。
+// メッセージ型は複数のフィールドを持てる
+
+// メッセージ型
+message Greeting {
+  string myName = 1;
+  string yourName = 2;
+  google.protobuf.Timestamp create_time = 3;
+}
+
+// 今までの試合数、勝敗と対戦結果の履歴を持つメッセージ型です。
+message Reply {
+  string ReplyText = 1;
+  // `repeated`で配列表現
+  //   repeated string hogehoge = 2;
+}
